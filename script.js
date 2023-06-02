@@ -1,64 +1,33 @@
-const redButton = document.querySelectorAll('.btn')[0];
-const blueButton = document.querySelectorAll('.btn')[1];
-const greenButton = document.querySelectorAll('.btn')[2];
+const button = [document.querySelectorAll('.btn')];
+const colorBox = [document.querySelectorAll('.color-area')];
 
-const firstDiv = document.querySelectorAll('.color-area')[0];
-const secondDiv = document.querySelectorAll('.color-area')[1];
-const thirdDiv = document.querySelectorAll('.color-area')[2];
+const color = ["bg-danger", "bg-primary", "bg-success"];
+
+const length = button[0].length = colorBox[0].length = color.length;
 
 
-redButton.addEventListener('click', function() {
-    if(firstDiv.className.includes("bg-dark")) {
-        firstDiv.classList.remove("bg-dark");
-        firstDiv.classList.add("bg-danger");
-        if(secondDiv.className.includes("bg-primary")) {
-            secondDiv.classList.remove("bg-primary");
-            secondDiv.classList.add("bg-dark");
+
+for (let i = 0; i < length; i++) {
+    button[0][i].addEventListener('click', function() {
+        if(colorBox[0][i].className.includes("bg-dark")) {
+            colorBox[0][i].classList.remove("bg-dark");
+            colorBox[0][i].classList.add(color[i]);
+            for (let j = 1; i + j <= length - 1; j++) {
+                if(colorBox[0][i+j].className.includes(color[i+j])) {
+                    colorBox[0][i+j].classList.remove(color[i+j]);
+                    colorBox[0][i+j].classList.add("bg-dark");
+                }
+            }
+            for (let c = 1; i - c >= 0; c++) {
+                if(colorBox[0][i-c].className.includes(color[i-c])) {
+                    colorBox[0][i-c].classList.remove(color[i-c]);
+                    colorBox[0][i-c].classList.add("bg-dark");
+                }
+                
+            }
+        } else {
+            colorBox[0][i].classList.remove(color[i]);
+            colorBox[0][i].classList.add("bg-dark");
         }
-        if(thirdDiv.className.includes("bg-success")) {
-            thirdDiv.classList.remove("bg-success");
-            thirdDiv.classList.add("bg-dark");
-        }
-    } else {
-        firstDiv.classList.remove("bg-danger");
-        firstDiv.classList.add("bg-dark");
-    }
-});
-
-
-blueButton.addEventListener('click', function() {
-    if(secondDiv.className.includes("bg-dark")) {
-        secondDiv.classList.remove("bg-dark");
-        secondDiv.classList.add("bg-primary");
-        if(firstDiv.className.includes("bg-danger")) {
-            firstDiv.classList.remove("bg-danger");
-            firstDiv.classList.add("bg-dark");
-        }
-        if(thirdDiv.className.includes("bg-success")) {
-            thirdDiv.classList.remove("bg-success");
-            thirdDiv.classList.add("bg-dark");
-        }
-    } else {
-        secondDiv.classList.remove("bg-primary");
-        secondDiv.classList.add("bg-dark");
-    }
-});
-
-
-greenButton.addEventListener('click', function() {
-    if(thirdDiv.className.includes("bg-dark")) {
-        thirdDiv.classList.remove("bg-dark");
-        thirdDiv.classList.add("bg-success");
-        if(firstDiv.className.includes("bg-danger")) {
-            firstDiv.classList.remove("bg-danger");
-            firstDiv.classList.add("bg-dark");
-        }
-        if(secondDiv.className.includes("bg-primary")) {
-            secondDiv.classList.remove("bg-primary");
-            secondDiv.classList.add("bg-dark");
-        }
-    } else {
-        thirdDiv.classList.remove("bg-success");
-        thirdDiv.classList.add("bg-dark");
-    }
-});
+    });
+};
